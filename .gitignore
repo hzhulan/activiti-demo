@@ -1,3 +1,5 @@
 logs/
 *.iml
 .idea/
+/activiti-01/target/
+
