@@ -62,7 +62,7 @@ public class ActivitiTaskTest {
         // 3. 根据任务负责人获取任务
         List<Task> taskList = taskService.createTaskQuery()
                 .processDefinitionKey(TASK_KEY)
-                .taskAssignee("rose").list();
+                .taskAssignee("zhangsan").list();
 
         for (Task task : taskList) {
 

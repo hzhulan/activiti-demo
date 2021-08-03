@@ -19,7 +19,7 @@ public class ZipDeployTest {
         try(ZipInputStream zis = new ZipInputStream(ZipDeployTest.class.getClassLoader().getResourceAsStream("bpmn/evection.zip"))) {
 
             // 使用压缩包的流进行流程部署
-            Deployment deploy = repositoryService.createDeployment().addZipInputStream(zis).deploy();
+            Deployment deploy = repositoryService.createDeployment().addZipInputStream(zis).name("zip部署流程").deploy();
             System.out.println(String.format("流程ID: %s", deploy.getId()));
             System.out.println(String.format("流程名称: %s", deploy.getName()));
 
