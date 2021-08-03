@@ -270,3 +270,59 @@ public void testFindPersonTaskList() {
 }
 ```
 
+## 流程
+
+### 查询
+
+```java
+private static final String TASK_KEY = "myEvection";
+
+@Test
+public void queryProcessDefinition() {
+    // 1. 获取repository
+    ProcessEngine engine = ProcessEngines.getDefaultProcessEngine();
+    RepositoryService repositoryService = engine.getRepositoryService();
+
+    // 2. 查询当前所有的流程定义
+    ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
+    List<ProcessDefinition> definitionList = processDefinitionQuery.processDefinitionKey(TASK_KEY)
+            .orderByProcessDefinitionVersion()
+            .desc()
+            .list();
+
+    for (ProcessDefinition processDefinition : definitionList) {
+        System.out.println(String.format("流程定义Id: %s", processDefinition.getId()));
+        System.out.println(String.format("流程定义名称: %s", processDefinition.getName()));
+        System.out.println(String.format("流程定义Key: %s", processDefinition.getKey()));
+        System.out.println(String.format("流程定义版本: %s", processDefinition.getVersion()));
+    }
+}
+```
+
+### 删除
+
+```java
+/**
+     * 流程删除
+     */
+    @Test
+    public void deleteDefinition() {
+        // 1. 获取repositoryService
+        ProcessEngine engine = ProcessEngines.getDefaultProcessEngine();
+        RepositoryService repositoryService = engine.getRepositoryService();
+
+        // 2. 查询流程
+        ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
+        List<ProcessDefinition> definitionList = processDefinitionQuery.processDefinitionKey(TASK_KEY).list();
+
+
+        for (ProcessDefinition processDefinition : definitionList) {
+            // 不开启级联删除
+//            repositoryService.deleteDeployment(processDefinition.getDeploymentId());
+
+            // 开启级联删除
+            repositoryService.deleteDeployment(processDefinition.getDeploymentId(), true);
+        }
+    }
+```
+
