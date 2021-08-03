@@ -5,7 +5,7 @@ import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.ProcessEngines;
 import org.junit.Test;
 
-public class TestCreate {
+public class EngineCreateTest {
 
     @Test
     public void test01 () {

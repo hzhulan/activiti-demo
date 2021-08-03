@@ -62,13 +62,7 @@
             <artifactId>activiti-cloud-services-api</artifactId>
             <version>${activiti.version}</version>
         </dependency>
-        <!-- mysql驱动 -->
-<!--        <dependency>-->
-<!--            <groupId>mysql</groupId>-->
-<!--            <artifactId>mysql-connector-java</artifactId>-->
-<!--            <version>5.1.40</version>-->
-<!--        </dependency>-->
-        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <!-- postgresql -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
