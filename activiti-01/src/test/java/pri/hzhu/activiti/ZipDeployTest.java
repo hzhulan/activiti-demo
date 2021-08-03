@@ -83,5 +83,6 @@ public class ZipDeployTest {
         while ((len = is.read(buffer)) != -1) {
             zos.write(buffer, 0, len);
         }
+        zos.closeEntry();
     }
 }
