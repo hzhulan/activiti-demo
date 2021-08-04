@@ -1,6 +1,8 @@
 package pri.hzhu.activiti;
 
 import org.activiti.engine.*;
+import org.activiti.engine.history.HistoricActivityInstance;
+import org.activiti.engine.history.HistoricActivityInstanceQuery;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
@@ -66,13 +68,35 @@ public class ActivitiTaskTest {
 
         for (Task task : taskList) {
 
-            System.out.println(String.format("流程实例ID: %s", task.getProcessDefinitionId()));
+            System.out.println(String.format("流程定义ID: %s", task.getProcessDefinitionId()));
+            System.out.println(String.format("流程实例ID: %s", task.getProcessInstanceId()));
             System.out.println(String.format("任务ID: %s", task.getId()));
             System.out.println(String.format("任务负责人: %s", task.getAssignee()));
             System.out.println(String.format("任务名称: %s", task.getName()));
 
+
             // 完成个人任务，走到下一步
             taskService.complete(task.getId());
+        }
+
+    }
+
+    @Test
+    public void findHistory() {
+        ProcessEngine engine = ProcessEngines.getDefaultProcessEngine();
+        HistoryService historyService = engine.getHistoryService();
+
+        HistoricActivityInstanceQuery instanceQuery = historyService.createHistoricActivityInstanceQuery();
+//        instanceQuery.processInstanceId("17501");
+        instanceQuery.processDefinitionId("myEvection:1:15004");
+        instanceQuery.orderByHistoricActivityInstanceStartTime().asc();
+        System.out.println("=============================================");
+        List<HistoricActivityInstance> list = instanceQuery.list();
+        for (HistoricActivityInstance historicActivityInstance : list) {
+            System.out.println("" + historicActivityInstance.getActivityId());
+            System.out.println("" + historicActivityInstance.getActivityName());
+            System.out.println("" + historicActivityInstance.getProcessDefinitionId());
+            System.out.println("=============================================");
         }
 
     }
