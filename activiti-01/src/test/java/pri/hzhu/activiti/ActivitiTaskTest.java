@@ -54,7 +54,14 @@ public class ActivitiTaskTest {
     }
 
     @Test
-    public void testFindPersonTaskList() {
+    public void completeFlow() {
+        testCompletePersonTaskList("zhangsan");
+        testCompletePersonTaskList("lisi");
+        testCompletePersonTaskList("wangwu");
+        testCompletePersonTaskList("rose");
+    }
+
+    private void testCompletePersonTaskList(String assignee) {
         // 1. engine获取
         ProcessEngine engine = ProcessEngines.getDefaultProcessEngine();
 
@@ -64,7 +71,7 @@ public class ActivitiTaskTest {
         // 3. 根据任务负责人获取任务
         List<Task> taskList = taskService.createTaskQuery()
                 .processDefinitionKey(TASK_KEY)
-                .taskAssignee("zhangsan").list();
+                .taskAssignee(assignee).list();
 
         for (Task task : taskList) {
 
@@ -88,7 +95,7 @@ public class ActivitiTaskTest {
 
         HistoricActivityInstanceQuery instanceQuery = historyService.createHistoricActivityInstanceQuery();
 //        instanceQuery.processInstanceId("17501");
-        instanceQuery.processDefinitionId("myEvection:1:15004");
+        instanceQuery.processDefinitionId("myEvection:1:30004");
         instanceQuery.orderByHistoricActivityInstanceStartTime().asc();
         System.out.println("=============================================");
         List<HistoricActivityInstance> list = instanceQuery.list();
