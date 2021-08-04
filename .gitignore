@@ -1,4 +1,5 @@
 logs/
 .idea/*
 /activiti-01/target/
-
+/*/*.iml
+*.iml
