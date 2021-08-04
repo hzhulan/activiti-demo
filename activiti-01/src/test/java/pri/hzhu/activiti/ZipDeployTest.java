@@ -30,7 +30,7 @@ public class ZipDeployTest {
         try(ZipInputStream zis = new ZipInputStream(ZipDeployTest.class.getClassLoader().getResourceAsStream("bpmn/evection.zip"))) {
 
             // 使用压缩包的流进行流程部署
-            Deployment deploy = repositoryService.createDeployment().addZipInputStream(zis).name("zip部署流程").deploy();
+            Deployment deploy = repositoryService.createDeployment().addZipInputStream(zis).name("请假流程").deploy();
             System.out.println(String.format("流程ID: %s", deploy.getId()));
             System.out.println(String.format("流程名称: %s", deploy.getName()));
 
@@ -53,7 +53,7 @@ public class ZipDeployTest {
         if (!CollectionUtils.isEmpty(definitionList)) {
             ProcessDefinition processDefinition = definitionList.get(0);
             // 2. 根据deploymentId获取资源
-            try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream("resource.zip"));) {
+            try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream("evection.zip"));) {
 
                 // 3. 获取png的输入流及文件路径
                 String diagramResourceName = processDefinition.getDiagramResourceName();
