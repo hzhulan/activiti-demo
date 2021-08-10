@@ -65,20 +65,22 @@ public class StartTest {
         variables.put("eve", evection);
         variables.put("assigne0", "xiaoli");
         variables.put("assigne1", "hr");
-        variables.put("assigne2", "yangzong");
+//        variables.put("assigne2", "yangzong");
 
         runtimeService.startProcessInstanceByKey(Constant.TASK_KEY, "10086", variables);
         System.out.println(engine.getName());
 
-        complete("xiaoli");
+//        complete("xiaoli");
+//        completeWithVariables("xiaoli");
     }
 
     @Test
     public void complete() {
+        completeWithVariables("xiaoli");
 //        queryTask("hr");
 //        queryTask("yangzong");
-        complete("yangzong");
-        complete("hr");
+//        complete("yangzong");
+//        complete("hr");
     }
 
     public void complete(String assignee) {
@@ -108,6 +110,28 @@ public class StartTest {
         for (Task task : taskList) {
             String id = task.getId();
 //            taskService.complete(id);
+            System.out.println(String.format("%s的任务%s", assignee, task.getName()));
+        }
+    }
+
+    public void completeWithVariables(String assignee) {
+        ProcessEngine engine = ProcessEngines.getDefaultProcessEngine();
+        TaskService taskService = engine.getTaskService();
+
+        List<Task> taskList = taskService.createTaskQuery().processDefinitionKey(Constant.TASK_KEY).taskAssignee(assignee).list();
+        if (CollectionUtils.isEmpty(taskList)) {
+            System.out.println(String.format("【%s】暂无可执行任务", assignee));
+            return;
+        }
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("assigne2", "lizong");
+
+        for (Task task : taskList) {
+
+
+            String id = task.getId();
+            taskService.complete(id);
+            taskService.setVariablesLocal(task.getId(), variables);
             System.out.println(String.format("%s的任务%s", assignee, task.getName()));
         }
     }
