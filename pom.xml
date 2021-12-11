@@ -19,6 +19,7 @@
         <slf4j.version>1.6.6</slf4j.version>
         <log4j.version>1.2.12</log4j.version>
         <activiti.version>7.0.0.Beta1</activiti.version>
+        <mysql.version>8.0.25</mysql.version>
     </properties>
 
     <!--  activiti相关依赖  -->
@@ -64,11 +65,18 @@
             <version>${activiti.version}</version>
         </dependency>
         <!-- postgresql -->
+<!--        <dependency>-->
+<!--            <groupId>org.postgresql</groupId>-->
+<!--            <artifactId>postgresql</artifactId>-->
+<!--            <version>42.2.23</version>-->
+<!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.2.23</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
         </dependency>
+
 
         <!-- mybatis -->
         <dependency>
