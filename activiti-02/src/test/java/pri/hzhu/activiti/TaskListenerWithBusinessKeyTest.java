@@ -2,8 +2,7 @@ package pri.hzhu.activiti;
 
 import org.activiti.engine.*;
 import org.activiti.engine.repository.Deployment;
-import org.activiti.engine.repository.ProcessDefinition;
-import org.activiti.engine.repository.ProcessDefinitionQuery;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.junit.Test;
 
@@ -70,8 +69,19 @@ public class TaskListenerWithBusinessKeyTest {
 
     }
 
+    @Test
     public void findProcessInstance() {
+        ProcessEngine engine = ProcessEngines.getDefaultProcessEngine();
 
+        TaskService taskService = engine.getTaskService();
+        RuntimeService runtimeService = engine.getRuntimeService();
+
+        Task task = taskService.createTaskQuery().processDefinitionKey(Constant.LISTENER_KEY).taskAssignee("zhangsanListener").singleResult();
+        String processInstanceId = task.getProcessInstanceId();
+        ProcessInstance instance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+
+        String businessKey = instance.getBusinessKey();
+        System.out.println(String.format("businessKey: %s.", businessKey));
     }
 
 }
