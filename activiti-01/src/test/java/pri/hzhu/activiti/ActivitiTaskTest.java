@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ActivitiTaskTest {
 
-    private static final String TASK_KEY = "myEvection";
+    private static final String TASK_KEY = "approveHolidays";
 
     @Test
     public void testDeploy() {
@@ -24,8 +24,8 @@ public class ActivitiTaskTest {
 
         // 3. 使用service进行流程部署
         Deployment deploy = repositoryService.createDeployment().name("出差申请流程")
-                .addClasspathResource("bpmn/evection.bpmn")
-                .addClasspathResource("bpmn/evection.png")
+                .addClasspathResource("bpmn/qingjia.bpmn")
+                .addClasspathResource("bpmn/qingjia.png")
                 .deploy();
 
         System.out.println(String.format("流程部署ID: %s", deploy.getId()));
@@ -55,10 +55,10 @@ public class ActivitiTaskTest {
 
     @Test
     public void completeFlow() {
-        testCompletePersonTaskList("zhangsan");
-        testCompletePersonTaskList("lisi");
-        testCompletePersonTaskList("wangwu");
-        testCompletePersonTaskList("rose");
+        testCompletePersonTaskList("approve");
+//        testCompletePersonTaskList("lisi");
+//        testCompletePersonTaskList("wangwu");
+//        testCompletePersonTaskList("rose");
     }
 
     private void testCompletePersonTaskList(String assignee) {
@@ -95,7 +95,7 @@ public class ActivitiTaskTest {
 
         HistoricActivityInstanceQuery instanceQuery = historyService.createHistoricActivityInstanceQuery();
 //        instanceQuery.processInstanceId("17501");
-        instanceQuery.processDefinitionId("myEvection:1:30004");
+        instanceQuery.processDefinitionId("approveHolidays:1:4");
         instanceQuery.orderByHistoricActivityInstanceStartTime().asc();
         System.out.println("=============================================");
         List<HistoricActivityInstance> list = instanceQuery.list();

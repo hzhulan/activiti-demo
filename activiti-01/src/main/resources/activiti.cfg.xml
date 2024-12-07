@@ -14,11 +14,11 @@ http://www.springframework.org/schema/tx/spring-tx.xsd">
     <!--dbcp链接池-->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql:///activiti"/>
+        <property name="url" value="jdbc:mysql://server239:3306/activiti"/>
         <property name="username" value="root"/>
-        <property name="password" value="root"/>
-        <property name="maxActive" value="3"/>
-        <property name="maxIdle" value="1"/>
+        <property name="password" value="sander@911014"/>
+        <property name="maxActive" value="30"/>
+        <property name="maxIdle" value="10"/>
     </bean>
 
     <!--在默认方式下 bean的id  固定为 processEngineConfiguration-->
